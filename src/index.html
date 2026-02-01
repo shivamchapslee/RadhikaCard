@@ -1,0 +1,32 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pink Yes No Page</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="home-page">
+  <div class="center">
+    <main class="card" role="region" aria-labelledby="offer-label">
+      <h1 id="offer-label" class="question">Hey!!</h1>
+      <h2 class="name">💖 Radhika 💖</h2>
+      <p class="subtitle">Will you be my valentine?</p>
+
+      <!-- buttons under the label -->
+      <div class="button-container" role="group" aria-label="Offer response">
+        <button id="yes-button" class="btn yes" type="button" aria-label="Accept offer"><span class="heart" aria-hidden="true">💗</span> Yes</button>
+        <button id="no-button" class="btn no" type="button" aria-label="Decline">No</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- confetti container (created on Yes click) -->
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+<!-- ...existing code... -->

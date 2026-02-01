@@ -1,0 +1,320 @@
+/* Theme variables */
+:root {
+    --bg-light: #fff7fb;
+    --bg-pink: #ffd6ec;
+    --accent: #d63384;
+    --accent-2: #ff6aa6;
+    --muted: #f7e6ef;
+    --card-shadow: 0 20px 50px rgba(214,51,132,0.10);
+    --transition: 280ms cubic-bezier(.2,.9,.2,1);
+}
+
+body {
+    background: radial-gradient(circle at 10% 10%, rgba(255,230,240,0.6), transparent 20%), var(--bg-pink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+} 
+
+.card {
+    background: linear-gradient(145deg, #fff8fb 0%, #fff0f6 100%);
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    width: 380px;
+    max-width: 92%;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.6);
+} 
+
+/* Pretty heading styles */
+.question {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    color: #6b0f3a;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #d63384;
+    margin: 6px 0 2px 0;
+    line-height: 1;
+    text-shadow: 0 6px 18px rgba(214,51,132,0.12), 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    color: #5a122d;
+    margin: 4px 0 12px 0;
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .name { font-size: 1.6rem; }
+    .subtitle { font-size: 0.95rem; }
+}
+
+/* container for buttons so movement is constrained visually */
+.button-container {
+    position: relative;
+    width: 320px;
+    height: 64px;
+    margin: 12px auto 0;
+    display: block;
+}
+
+.btn {
+    padding: 10px 18px;
+    font-size: 15px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn .heart { display:inline-block; transform-origin:center; transition: transform 220ms ease; font-size:1.05rem; }
+
+.btn.yes {
+    background: linear-gradient(90deg, var(--accent-2), var(--accent));
+    color: #fff;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.btn.no {
+    background: #fff;
+    color: var(--accent);
+    border: 2px solid rgba(214,51,132,0.12);
+    position: absolute;
+    left: 70%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: left 0.35s cubic-bezier(0.2,0.8,0.2,1), top 0.35s cubic-bezier(0.2,0.8,0.2,1), transform 0.18s ease;
+    will-change: left, top, transform;
+}
+
+/* heart pop animation */
+@keyframes pop {
+    0% { transform: scale(1) rotate(0deg); }
+    40% { transform: scale(1.45) rotate(12deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.btn.yes .heart.pop { animation: pop 420ms ease; }
+
+/* confetti pieces */
+#confetti-container { position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 9999; }
+.confetti {
+    position: absolute;
+    width: 9px;
+    height: 12px;
+    border-radius: 2px;
+    opacity: 0.95;
+}
+@keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(520px) rotate(720deg); opacity: 0; }
+} 
+
+/* Gallery grid styles (2×2 grid) */
+.gallery { padding: 28px 12px; }
+.image-container {
+    width: 100%;
+    max-width: 1200px;
+    /* slightly increase available height to avoid clipping on most viewports */
+    height: calc(100vh - 24px);
+    margin: 8px auto 0;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+    position: relative;
+    padding: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    background: none; /* no background image */
+    overflow: hidden;
+    align-items: stretch;
+} 
+
+/* Layout tweaks for gallery page to prevent vertical centering from cutting off the grid */
+.gallery-page {
+    justify-content: flex-start; /* don't center vertically on gallery page */
+    padding-top: 12px;
+}
+
+.gallery-page .image-container {
+    margin-top: 12px; /* small offset from top */
+}
+
+.grid-item {
+    width: 100%;
+    height: 100%;
+    min-height: 0; /* allow grid items to shrink properly */
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transform-origin: center center;
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1), box-shadow 0.28s ease;
+    /* reduce size slightly by default */
+    transform: scale(0.94) rotate(0deg);
+}
+
+/* Give each image a small, different rotation */
+.image-container .grid-item:nth-child(1) { transform: scale(0.94) rotate(-3deg); }
+.image-container .grid-item:nth-child(2) { transform: scale(0.94) rotate(2deg); }
+.image-container .grid-item:nth-child(3) { transform: scale(0.94) rotate(-2deg); }
+.image-container .grid-item:nth-child(4) { transform: scale(0.94) rotate(3deg); }
+
+.gallery-message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Dancing Script', cursive;
+    color: #ffffff;
+    text-align: center;
+    z-index: 2;
+    pointer-events: none;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,240,245,0.9));
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    backdrop-filter: blur(6px);
+}
+
+.gallery-message .message-title {
+    font-size: 3rem;
+    line-height: 1;
+    color: #d63384;
+    font-weight: 700;
+    text-shadow: 0 6px 18px rgba(214,51,132,0.18), 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.gallery-message .message-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #c2185b;
+    background: transparent;
+    padding: 0;
+    margin-top: 6px;
+    line-height: 1.05;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 700px) {
+    .gallery-message { padding: 10px 12px; }
+    .gallery-message .message-title { font-size: 2rem; }
+    .gallery-message .message-sub { font-size: 1.05rem; }
+}
+
+@media (max-width: 700px) {
+    .gallery-message .message-title { font-size: 1.5rem; }
+    .gallery-message .message-sub { font-size: 0.95rem; padding: 6px 8px; }
+}
+
+@media (max-width: 900px) {
+    .image-container { min-height: 50vh; }
+}
+@media (max-width: 600px) {
+    .image-container { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; min-height: auto; }
+    .gallery-message { position: static; transform: none; margin-top: 12px; }
+}
+
+/* Mobile-specific adjustments for phones */
+@media (max-width: 480px) {
+    .card { width: 92%; padding: 18px; border-radius: 14px; }
+    .name { font-size: 1.6rem; }
+    .subtitle { font-size: 0.95rem; }
+
+    /* make button area slightly narrower and keep buttons tappable */
+    .button-container {
+        width: 260px;
+        height: 72px;
+        margin: 10px auto 0;
+    }
+    .btn { padding: 12px 14px; font-size: 15px; }
+
+    /* Keep buttons absolutely positioned but closer together for small screens */
+    .btn.yes { left: 30%; }
+    .btn.no { left: 70%; }
+
+    /* ensure grid fits without scrolling and images remain visible */
+    .image-container { height: calc(100vh - 140px); gap: 6px; padding: 6px; }
+
+    /* remove rotation on small screens for clearer images */
+    .image-container .grid-item { transform: scale(0.96) rotate(0deg) !important; }
+
+    /* slightly smaller, tighter message box */
+    .gallery-message { font-size: 0.98rem; padding: 8px 12px; }
+}
+
+/* Back link for gallery */
+.back-link {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    background: rgba(255,255,255,0.92);
+    padding: 8px 10px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    z-index: 5;
+}
+
+/* gallery intro transition */
+.image-container { opacity: 0; transform: scale(0.985); transition: opacity 420ms ease, transform 420ms ease; }
+.image-container.show { opacity: 1; transform: none; }
+
+/* Tile reveal: start slightly down and invisible, then pop in with stagger */
+.image-container .grid-item { opacity: 0; transform: translateY(10px) scale(0.98); transition: opacity 420ms ease, transform 420ms ease; }
+.image-container.show .grid-item { opacity: 1; transform: none; }
+.image-container.show .grid-item:nth-child(1) { transition-delay: 80ms; }
+.image-container.show .grid-item:nth-child(2) { transition-delay: 160ms; }
+.image-container.show .grid-item:nth-child(3) { transition-delay: 240ms; }
+.image-container.show .grid-item:nth-child(4) { transition-delay: 320ms; }
+
+/* Sparkle (subtle scale and glow) for the gallery message */
+@keyframes sparkle {
+    0% { transform: translate(-50%, -50%) scale(0.98); filter: drop-shadow(0 0 0 rgba(214,51,132,0)); }
+    40% { transform: translate(-50%, -50%) scale(1.03); filter: drop-shadow(0 10px 30px rgba(214,51,132,0.14)); }
+    100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 6px 18px rgba(214,51,132,0.12)); }
+}
+.gallery-message.sparkle { animation: sparkle 900ms ease 0s 3; }
